@@ -23,11 +23,11 @@ jobs:
           name: 'download'
 
       - name: create download dir
-        if: steps.check_download_artifact.exists == 'true'
+        #if: steps.check_download_artifact.exists == 'true'
         run: mkdir -p build/downloads
 
       - uses: actions/download-artifact@v3
-        if: steps.check_download_artifact.exists == 'true'
+        #if: steps.check_download_artifact.exists == 'true'
         with:
           name: download
           path: build/downloads
@@ -38,17 +38,17 @@ jobs:
           name: 'sstate'
        
       - name: create sstate dir
-        if: steps.check_sstate_artifact.exists == 'true'
+        #if: steps.check_sstate_artifact.exists == 'true'
         run: mkdir -p build/sstate-cache
 
       - uses: actions/download-artifact@v3
-        if: steps.check_sstate_artifact.exists == 'true'
+        #if: steps.check_sstate_artifact.exists == 'true'
         with:
           name: sstate
           path: sstate.tar.xz
 
       - name: extract sstate tarball
-        if: steps.check_sstate_artifact.exists == 'true'
+        #if: steps.check_sstate_artifact.exists == 'true'
         run: |
           tar -xJf sstate.tar.xz -C build/sstate-cache/
 

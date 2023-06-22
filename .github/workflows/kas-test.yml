@@ -27,6 +27,6 @@ jobs:
       - uses: actions/upload-artifact@v3 
         with:
           name: sstate
-          path: build/tmp/sstate-cache
+          path: build/sstate-cache
 
 

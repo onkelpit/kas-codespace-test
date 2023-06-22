@@ -16,6 +16,7 @@ repos:
 local_conf_header:
   standard: |
     CONF_VERSION = "2"
+    PACKAGE_CLASSES = "package_ipk"
     INHERIT += "rm_work"
     BB_SIGNATURE_HANDLER = "OEEquivHash"
     BB_HASHSERVE = "auto"

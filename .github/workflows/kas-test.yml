@@ -13,21 +13,12 @@ on:
 jobs:
   build:
     runs-on: self-hosted
-    
-    container:
-       image: ghcr.io/siemens/kas/kas-isar:latest
 
     steps:
       - uses: actions/checkout@v3
-      
-      - uses: actions/download-artifact@v3
-        with:
-          name: kas-rpi2.yml
-
-      - name: Display structure of downloaded files
-        run: ls -R
-      
+       
       - name: Build meta-raspberrypi
         run: |
             cd $BUILD_DIR
-            kas build kas-rpi2.yml
+            /usr/bin/wget "https://raw.githubusercontent.com/siemens/kas/master/kas-container" -O kas-container
+            /bin/bash kas-container build kas-rpi2.yml

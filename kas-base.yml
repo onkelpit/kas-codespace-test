@@ -22,6 +22,7 @@ local_conf_header:
     BB_HASHSERVE = "auto"
     BB_HASHSERVE_UPSTREAM = "hashserv.yocto.io:8687"
     SSTATE_MIRRORS ?= "file://.* https://sstate.yoctoproject.org/all/PATH;downloadfilename=PATH"
+    BB_GENERATE_MIRROR_TARBALLS = "1"
 
   debug-tweaks: |
     EXTRA_IMAGE_FEATURES = "debug-tweaks"

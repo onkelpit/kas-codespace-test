@@ -3,7 +3,7 @@ name: kas-test
 # Run on changes to master
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
 

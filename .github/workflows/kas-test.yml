@@ -23,3 +23,10 @@ jobs:
             /bin/ls -lR
             /usr/bin/wget "https://raw.githubusercontent.com/siemens/kas/master/kas-container" -O kas-container
             /bin/bash kas-container build kas-base.yml
+      
+      - uses: actions/upload-artifact@v3 
+        with:
+          name: sstate
+          path: build/tmp/sstate-cache
+
+

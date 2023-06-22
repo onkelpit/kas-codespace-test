@@ -17,9 +17,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
        
-      - name: Build rpi2 image
+      - name: Build qemu image
         run: |
             pwd
             /bin/ls -lR
             /usr/bin/wget "https://raw.githubusercontent.com/siemens/kas/master/kas-container" -O kas-container
-            /bin/bash kas-container build kas-rpi2.yml
+            /bin/bash kas-container build kas-base.yml

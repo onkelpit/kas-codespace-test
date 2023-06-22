@@ -23,10 +23,21 @@ jobs:
             /bin/ls -lR
             /usr/bin/wget "https://raw.githubusercontent.com/siemens/kas/master/kas-container" -O kas-container
             /bin/bash kas-container build kas-base.yml
+
+      - name: create sstate tarball
+        run: |
+            tar -cJf sstate.tar.xz -C build/sstate-cache/ .
       
       - uses: actions/upload-artifact@v3 
         with:
           name: sstate
-          path: build/sstate-cache
+          path: sstate.tar.xz
+
+      - uses: actions/upload-artifact@v3 
+        with:
+          name: download
+          path: | 
+            build/downloads/
+            !build/downloads/git2/
 
 

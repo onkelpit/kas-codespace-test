@@ -17,8 +17,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
        
-      - name: Build meta-raspberrypi
+      - name: Build rpi2 image
         run: |
-            cd $BUILD_DIR
+            pwd
+            /bin/ls -lR
             /usr/bin/wget "https://raw.githubusercontent.com/siemens/kas/master/kas-container" -O kas-container
             /bin/bash kas-container build kas-rpi2.yml

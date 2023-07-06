@@ -68,7 +68,7 @@ jobs:
         id: S3-sstate
         with:
             aws_bucket: kas-test
-            source_dir: sstate.tar.xz
+            source_dir: '.'
             aws_key_id: ${{secrets.AWS_KEY_ID}}
             aws_secret_access_key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
 

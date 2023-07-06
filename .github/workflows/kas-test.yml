@@ -17,40 +17,40 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - uses: xsavikx/artifact-exists-action@v0
-        id: check_download_artifact
-        with:
-          name: 'download'
+#      - uses: xsavikx/artifact-exists-action@v0
+#        id: check_download_artifact
+#        with:
+#          name: 'download'
 
-      - name: create download dir
-        #if: steps.check_download_artifact.exists == 'true'
-        run: mkdir -p build/downloads
+#      - name: create download dir
+#        #if: steps.check_download_artifact.exists == 'true'
+#        run: mkdir -p build/downloads
 
-      - uses: actions/download-artifact@v3
-        #if: steps.check_download_artifact.exists == 'true'
-        with:
-          name: download
-          path: build/downloads
+#      - uses: actions/download-artifact@v3
+#        #if: steps.check_download_artifact.exists == 'true'
+#        with:
+#          name: download
+#          path: build/downloads
 
-      - uses: xsavikx/artifact-exists-action@v0
-        id: check_sstate_artifact
-        with:
-          name: 'sstate'
+#      - uses: xsavikx/artifact-exists-action@v0
+#        id: check_sstate_artifact
+#        with:
+#          name: 'sstate'
        
-      - name: create sstate dir
-        #if: steps.check_sstate_artifact.exists == 'true'
-        run: mkdir -p build/sstate-cache
+#      - name: create sstate dir
+#        #if: steps.check_sstate_artifact.exists == 'true'
+#        run: mkdir -p build/sstate-cache
 
-      - uses: actions/download-artifact@v3
-        #if: steps.check_sstate_artifact.exists == 'true'
-        with:
-          name: sstate
-          path: sstate.tar.xz
+#      - uses: actions/download-artifact@v3
+#        #if: steps.check_sstate_artifact.exists == 'true'
+#        with:
+#          name: sstate
+#          path: sstate.tar.xz
 
-      - name: extract sstate tarball
-        #if: steps.check_sstate_artifact.exists == 'true'
-        run: |
-          tar -xJf sstate.tar.xz -C build/sstate-cache/
+#      - name: extract sstate tarball
+#        #if: steps.check_sstate_artifact.exists == 'true'
+#        run: |
+#          tar -xJf sstate.tar.xz -C build/sstate-cache/
 
       - name: Build qemu image
         run: |
@@ -62,17 +62,13 @@ jobs:
       - name: create sstate tarball
         run: |
             tar -cJf sstate.tar.xz -C build/sstate-cache/ .
-      
-      - uses: actions/upload-artifact@v3 
-        with:
-          name: sstate
-          path: sstate.tar.xz
 
-      - uses: actions/upload-artifact@v3 
+      - name: Upload SSTATE to S3
+        uses: shallwefootball/s3-upload-action@master
+        id: S3-sstate
         with:
-          name: download
-          path: | 
-            build/downloads/
-            !build/downloads/git2/
-
+            aws_bucket: kas-test
+            source_dir: sstate.tar.xz
+            aws_key_id: ${{secrets.AWS_KEY_ID}}
+            aws_secret_access_key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
 

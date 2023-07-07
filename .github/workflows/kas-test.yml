@@ -58,10 +58,6 @@ jobs:
             /bin/ls -lR
             /usr/bin/wget "https://raw.githubusercontent.com/siemens/kas/master/kas-container" -O kas-container
             /bin/bash kas-container build kas-base.yml
-  deploy:
-    runs-on: self-hosted
-
-    steps:
 
 #      - name: create sstate tarball
 #        run: |

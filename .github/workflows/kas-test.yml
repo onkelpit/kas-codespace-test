@@ -61,14 +61,24 @@ jobs:
 
       - name: create sstate tarball
         run: |
-            tar -cJf build/tmp/deploy/sstate.tar.xz -C build/sstate-cache/ .
+            mkdir -p build/tmp/deploy/sstate/
+            tar -cJf build/tmp/deploy/sstate/sstate.tar.xz -C build/sstate-cache/ .
 
       - name: Upload SSTATE to S3
         uses: shallwefootball/s3-upload-action@master
         id: S3-sstate
         with:
             aws_bucket: kas-test
-            source_dir: build/tmp/deploy
+            source_dir: build/tmp/deploy/sstate
+            aws_key_id: ${{secrets.AWS_KEY_ID}}
+            aws_secret_access_key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
+            
+      - name: Upload images to S3
+        uses: shallwefootball/s3-upload-action@master
+        id: S3-images
+        with:
+            aws_bucket: kas-test
+            source_dir: build/tmp/deploy/images
             aws_key_id: ${{secrets.AWS_KEY_ID}}
             aws_secret_access_key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
 
